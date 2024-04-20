@@ -1,10 +1,15 @@
 const express = require('express')
+const database = require('./database')
+
 const app = express()
 const port = 3000
 
-app.get('/person', (req, res) => {
-  
+app.get('/person', async(req, res) => {
+  const result = await database.getPerson()
+  res.json(result)
 })
+
+
 app.post('/person', (req, res) => {
   
 })
