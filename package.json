@@ -1,0 +1,15 @@
+{
+  "name": "restapiwithmariadb",
+  "version": "1.0.0",
+  "description": "RestFulAPIwithMariaDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mkb_03",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mariadb": "^3.3.0"
+  }
+}
