@@ -9,6 +9,7 @@ const pool = mariaDB.createPool({
 
 })
 
+// GET all persons query 
 exports.getPerson = async function (){
     let conn 
     try {
@@ -30,8 +31,25 @@ exports.addPerson = async function (params){
     let conn 
     try {
         conn = await pool.getConnection()
-        const res = await conn.query("INSERT INTO person (name, age, salary) VALUES (?,?,?) ", [name , age, salary])
+        const res = await conn.query("INSERT INTO person (name, age, salary) VALUES (?, ?, ?)", [name , age, salary])
         return {id_person: parseInt(res.inertId)}
+
+    } catch (err) {
+        throw err
+    } finally {
+        if(conn) conn.end() // release pool
+    }
+}
+
+
+// UPDATE query for person
+exports.updatePerson = async function (id_person, params){
+    let {name, age, salary} = params
+    let conn
+    try {
+        conn = await pool.getConnection()
+        const res = await conn.query("UPDATE person SET name = ? , age = ? , salary = ? WHERE id_person = ?", [name , age, salary, id_person])
+        return {affected: parseInt(res.affected)}
 
     } catch (err) {
         throw err
