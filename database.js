@@ -49,7 +49,7 @@ exports.updatePerson = async function (id_person, params){
     try {
         conn = await pool.getConnection()
         const res = await conn.query("UPDATE person SET name = ? , age = ? , salary = ? WHERE id_person = ?", [name , age, salary, id_person])
-        return {affected: parseInt(res.affected)}
+        return {affected: parseInt(res.affectedRows)}
 
     } catch (err) {
         throw err
@@ -60,13 +60,13 @@ exports.updatePerson = async function (id_person, params){
 
 
 // DELETE query for person
-exports.deletePerson = async function (id_person, params){
-    let {name, age, salary} = params
+exports.deletePerson = async function (id_person){
+    
     let conn
     try {
         conn = await pool.getConnection()
-        const res = await conn.query("UPDATE person SET name = ? , age = ? , salary = ? WHERE id_person = ?", [name , age, salary, id_person])
-        return {affected: parseInt(res.affected)}
+        const res = await conn.query("DELETE FROM person where id_person = ?", [id_person])
+        return {affected: parseInt(res.affectedRows)}
 
     } catch (err) {
         throw err
