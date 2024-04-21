@@ -57,3 +57,20 @@ exports.updatePerson = async function (id_person, params){
         if(conn) conn.end() // release pool
     }
 }
+
+
+// DELETE query for person
+exports.deletePerson = async function (id_person, params){
+    let {name, age, salary} = params
+    let conn
+    try {
+        conn = await pool.getConnection()
+        const res = await conn.query("UPDATE person SET name = ? , age = ? , salary = ? WHERE id_person = ?", [name , age, salary, id_person])
+        return {affected: parseInt(res.affected)}
+
+    } catch (err) {
+        throw err
+    } finally {
+        if(conn) conn.end() // release pool
+    }
+}

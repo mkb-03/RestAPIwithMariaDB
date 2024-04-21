@@ -27,8 +27,11 @@ app.put('/person/:id', async(req, res) => {
 })
 
 // Removing data from database
-app.delete('/person', (req, res) => {
-    
+app.delete('/person/:id', async(req, res) => {
+    const id_person = req.params.id
+    const body = req.body
+    const result = await database.deletePerson(id_person, body)
+    res.json(result)
 })
 
 
